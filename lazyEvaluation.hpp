@@ -203,20 +203,37 @@ BIEXPR_DEFINE(DivExpr, /)
 			}
 			else if constexpr (Exponent > 0) {
 				if constexpr ((Exponent & 1) == 0) {
-					auto output = PowExpr<Exponent / 2, EvalType, LHS>{ lhs }.eval(std::forward<Args>(args)...);
+					// LHS -> std::add_lvalue_reference_t<std::add_const_t<std::remove_reference_t<LHS>>>
+					auto output = PowExpr<
+						Exponent / 2, 
+						EvalType, 
+						std::add_lvalue_reference_t<std::add_const_t<std::remove_reference_t<LHS>>>>
+					{ lhs }.eval(std::forward<Args>(args)...);
 					return output * output;
 				}
 				else {
-					return PowExpr<Exponent - 1, EvalType, LHS>{lhs}.eval(std::forward<Args>(args)...)* lhs.eval(std::forward<Args>(args)...);
+					return PowExpr<
+						Exponent - 1, 
+						EvalType, 
+						std::add_lvalue_reference_t<std::add_const_t<std::remove_reference_t<LHS>>>>
+					{lhs}.eval(std::forward<Args>(args)...) * lhs.eval(std::forward<Args>(args)...);
 				}
 			}
 			else if constexpr (Exponent < 0) {
 				if constexpr ((Exponent & 1) == 0) {
-					auto output = PowExpr<Exponent / 2, EvalType, LHS>{ lhs }.eval(std::forward<Args>(args)...);
+					auto output = PowExpr<
+						Exponent / 2, 
+						EvalType, 
+						std::add_lvalue_reference_t<std::add_const_t<std::remove_reference_t<LHS>>>>
+					{ lhs }.eval(std::forward<Args>(args)...);
 					return output * output;
 				}
 				else {
-					return PowExpr<Exponent + 1, EvalType, LHS>{lhs}.eval(std::forward<Args>(args)...) / lhs.eval(std::forward<Args>(args)...);
+					return PowExpr<
+						Exponent + 1, 
+						EvalType, 
+						std::add_lvalue_reference_t<std::add_const_t<std::remove_reference_t<LHS>>>>
+					{lhs}.eval(std::forward<Args>(args)...) / lhs.eval(std::forward<Args>(args)...);
 				}
 			}
 		}
@@ -240,20 +257,36 @@ BIEXPR_DEFINE(DivExpr, /)
 			}
 			else if constexpr (Exponent > 0) {
 				if constexpr ((Exponent & 1) == 0) {
-					auto output = ApowExpr<Exponent / 2, EvalType, LHS>{ lhs }.eval(std::forward<Args>(args)...);
+					auto output = ApowExpr<
+						Exponent / 2, 
+						EvalType, 
+						std::add_lvalue_reference_t<std::add_const_t<std::remove_reference_t<LHS>>>>
+					{ lhs }.eval(std::forward<Args>(args)...);
 					return output + output;
 				}
 				else {
-					return ApowExpr<Exponent - 1, EvalType, LHS>{lhs}.eval(std::forward<Args>(args)...) + lhs.eval(std::forward<Args>(args)...);
+					return ApowExpr<
+						Exponent - 1, 
+						EvalType, 
+						std::add_lvalue_reference_t<std::add_const_t<std::remove_reference_t<LHS>>>>
+					{lhs}.eval(std::forward<Args>(args)...) + lhs.eval(std::forward<Args>(args)...);
 				}
 			}
 			else if constexpr (Exponent < 0) {
 				if constexpr ((Exponent & 1) == 0) {
-					auto output = ApowExpr<Exponent / 2, EvalType, LHS>{ lhs }.eval(std::forward<Args>(args)...);
+					auto output = ApowExpr<
+						Exponent / 2, 
+						EvalType, 
+						std::add_lvalue_reference_t<std::add_const_t<std::remove_reference_t<LHS>>>>
+					{ lhs }.eval(std::forward<Args>(args)...);
 					return output + output;
 				}
 				else {
-					return ApowExpr<Exponent + 1, EvalType, LHS>{lhs}.eval(std::forward<Args>(args)...) - lhs.eval(std::forward<Args>(args)...);
+					return ApowExpr<
+						Exponent + 1, 
+						EvalType, 
+						std::add_lvalue_reference_t<std::add_const_t<std::remove_reference_t<LHS>>>>
+					{lhs}.eval(std::forward<Args>(args)...) - lhs.eval(std::forward<Args>(args)...);
 				}
 			}
 		}
