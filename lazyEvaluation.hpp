@@ -203,11 +203,11 @@ BIEXPR_DEFINE(DivExpr, /)
 			}
 			else if constexpr (Exponent > 0) {
 				if constexpr ((Exponent & 1) == 0) {
-					// LHS -> std::add_lvalue_reference_t<std::add_const_t<std::remove_reference_t<LHS>>>
+					// LHS -> std::add_lvalue_reference_t<std::add_const_t<LHS>>
 					auto output = PowExpr<
 						Exponent / 2, 
 						EvalType, 
-						std::add_lvalue_reference_t<std::add_const_t<std::remove_reference_t<LHS>>>>
+						std::add_lvalue_reference_t<std::add_const_t<LHS>>>
 					{ lhs }.eval(std::forward<Args>(args)...);
 					return output * output;
 				}
@@ -215,7 +215,7 @@ BIEXPR_DEFINE(DivExpr, /)
 					return PowExpr<
 						Exponent - 1, 
 						EvalType, 
-						std::add_lvalue_reference_t<std::add_const_t<std::remove_reference_t<LHS>>>>
+						std::add_lvalue_reference_t<std::add_const_t<LHS>>>
 					{lhs}.eval(std::forward<Args>(args)...) * lhs.eval(std::forward<Args>(args)...);
 				}
 			}
@@ -224,7 +224,7 @@ BIEXPR_DEFINE(DivExpr, /)
 					auto output = PowExpr<
 						Exponent / 2, 
 						EvalType, 
-						std::add_lvalue_reference_t<std::add_const_t<std::remove_reference_t<LHS>>>>
+						std::add_lvalue_reference_t<std::add_const_t<LHS>>>
 					{ lhs }.eval(std::forward<Args>(args)...);
 					return output * output;
 				}
@@ -232,7 +232,7 @@ BIEXPR_DEFINE(DivExpr, /)
 					return PowExpr<
 						Exponent + 1, 
 						EvalType, 
-						std::add_lvalue_reference_t<std::add_const_t<std::remove_reference_t<LHS>>>>
+						std::add_lvalue_reference_t<std::add_const_t<LHS>>>
 					{lhs}.eval(std::forward<Args>(args)...) / lhs.eval(std::forward<Args>(args)...);
 				}
 			}
@@ -260,7 +260,7 @@ BIEXPR_DEFINE(DivExpr, /)
 					auto output = ApowExpr<
 						Exponent / 2, 
 						EvalType, 
-						std::add_lvalue_reference_t<std::add_const_t<std::remove_reference_t<LHS>>>>
+						std::add_lvalue_reference_t<std::add_const_t<LHS>>>
 					{ lhs }.eval(std::forward<Args>(args)...);
 					return output + output;
 				}
@@ -268,7 +268,7 @@ BIEXPR_DEFINE(DivExpr, /)
 					return ApowExpr<
 						Exponent - 1, 
 						EvalType, 
-						std::add_lvalue_reference_t<std::add_const_t<std::remove_reference_t<LHS>>>>
+						std::add_lvalue_reference_t<std::add_const_t<LHS>>>
 					{lhs}.eval(std::forward<Args>(args)...) + lhs.eval(std::forward<Args>(args)...);
 				}
 			}
@@ -277,7 +277,7 @@ BIEXPR_DEFINE(DivExpr, /)
 					auto output = ApowExpr<
 						Exponent / 2, 
 						EvalType, 
-						std::add_lvalue_reference_t<std::add_const_t<std::remove_reference_t<LHS>>>>
+						std::add_lvalue_reference_t<std::add_const_t<LHS>>>
 					{ lhs }.eval(std::forward<Args>(args)...);
 					return output + output;
 				}
@@ -285,7 +285,7 @@ BIEXPR_DEFINE(DivExpr, /)
 					return ApowExpr<
 						Exponent + 1, 
 						EvalType, 
-						std::add_lvalue_reference_t<std::add_const_t<std::remove_reference_t<LHS>>>>
+						std::add_lvalue_reference_t<std::add_const_t<LHS>>>
 					{lhs}.eval(std::forward<Args>(args)...) - lhs.eval(std::forward<Args>(args)...);
 				}
 			}
